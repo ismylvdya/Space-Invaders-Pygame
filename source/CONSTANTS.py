@@ -33,7 +33,7 @@ class AlienConst():
 
     UFO_SPEED = 1.5                             # горизонтальная скорость НЛО
     GUN_TRANSPARENCY_DURATION = 7000            # длительность неуязвимости пушки при попадании в НЛО (мс)
-    MAX_TIME_FOR_UFO_APPEARANCE_MOMENT = 10000  # максимлаьный момент времени (с начала раунда) в который НЛО может появиться
+    MAX_TIME_FOR_UFO_APPEARANCE_MOMENT = 20000  # максимлаьный момент времени (с начала раунда) в который НЛО может появиться
 
     PLAY_SOUND_OF_DEATH = False
     PLAY_UFO_SOUND = False
@@ -48,4 +48,3 @@ pygame.init()
 
 SMALLFONT = pygame.font.Font('fonts/PublicPixel.ttf', round(22 * SCREEN_SIZE / 800))    # шрифт для вывода количества выпущенных пуль и надписи 3x около прогрессбара
 # размер каждого символа (с учетом расстояния между символами) -- 22x22 (на экране 800x800). Отдельных расстояний между символами нет
-BIGFONT = pygame.font.Font('fonts/PublicPixel.ttf', round(100 * SCREEN_SIZE / 800))
