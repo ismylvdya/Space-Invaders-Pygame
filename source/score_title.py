@@ -1,27 +1,27 @@
-'''в модуле: реализация класса ScoreTitleSumbol одного символа из надписи 'bullets : количество_выпущенных_пуль' '''
+'''в модуле: реализация класса ScoreTitleSymbol одного символа из надписи 'bullets : количество_выпущенных_пуль' '''
 from source.my_functions import in_screen
 from source.CONSTANTS import SCREEN_SIZE, SCREEN_FRAME, SMALLFONT
 from source.bullet import Bullet
 
-class ScoreTitleSumbol():
+class ScoreTitleSymbol():
     count = 0                               # сквозной счетчик
     symbols_before_digits_in_score = ''     # к ней в своем конструкторе добавляется каждый символ который до двоеточия включительно
     colon_was_added = False                 # факт передачи двоеточия в конструктор
 
     def __init__(self, from_screenframe_to_bottom_title, symb, row):
         '''symb -- инициализирующий символ из main и update_digits() (напр. 'b', ':', '5'), row -- ряд в котором строит данный символ (0 -> первая строка, 1 -> вторая строка)'''
-        self.count = ScoreTitleSumbol.count
-        ScoreTitleSumbol.count += 1
+        self.count = ScoreTitleSymbol.count
+        ScoreTitleSymbol.count += 1
 
         self.symb = str(symb)
         self.row = row
 
         # добавляем в symbols_before_digits_in_score данный символ если это двоеточие или те символы что до двоеточия
         if self.row == 0:   # только для первой строки (для 'bullets:123')
-            if not ScoreTitleSumbol.colon_was_added:
-                ScoreTitleSumbol.symbols_before_digits_in_score += self.symb
+            if not ScoreTitleSymbol.colon_was_added:
+                ScoreTitleSymbol.symbols_before_digits_in_score += self.symb
                 if self.symb == ':':
-                    ScoreTitleSumbol.colon_was_added = True
+                    ScoreTitleSymbol.colon_was_added = True
 
         self.rect = SMALLFONT.render(self.symb, 'White', False).get_rect()
         # координаты x и y данного символа
@@ -38,14 +38,14 @@ class ScoreTitleSumbol():
     def update_digits(cls, symb_list, old_highscore=-1):    # old_highdcore -- только для symb_list = highscore_list
         '''удаляет цифры после ':' из symb_list и добавляет обновленные'''
         if symb_list[0].row == 0:   # для score_list
-            del symb_list[len(ScoreTitleSumbol.symbols_before_digits_in_score):]
+            del symb_list[len(ScoreTitleSymbol.symbols_before_digits_in_score):]
             for digit in str(Bullet.score):
-                symb_list.append(ScoreTitleSumbol(symb_list[0].rect.y - SCREEN_FRAME + SMALLFONT.get_height() - symb_list[0].row * 1.5 * SMALLFONT.get_height(), digit, 0))
+                symb_list.append(ScoreTitleSymbol(symb_list[0].rect.y - SCREEN_FRAME + SMALLFONT.get_height() - symb_list[0].row * 1.5 * SMALLFONT.get_height(), digit, 0))
         elif symb_list[0].row == 1: # для highscore_list
             # (почему тут мы просто удалем n элементов с конца на кажном фрейме а в score_list мы в начале вычисляем количество букв до цифр -- потому что во втором случае значность числа меняется отностельно часто поэтому каждый раз пересчитывать значность на пред выстреле и на следующем не рационально)
             del symb_list[-len(str(old_highscore)):]   # удаляет последние Bullet.highscore элементов
             for digit in str(Bullet.highscore):
-                symb_list.append(ScoreTitleSumbol(symb_list[0].rect.y - SCREEN_FRAME + SMALLFONT.get_height() - symb_list[0].row * 1.5 * SMALLFONT.get_height(), digit, 1))
+                symb_list.append(ScoreTitleSymbol(symb_list[0].rect.y - SCREEN_FRAME + SMALLFONT.get_height() - symb_list[0].row * 1.5 * SMALLFONT.get_height(), digit, 1))
 
     def update_x(self, symb_list):
         '''обновление координаты x данного символа из symb_list в зависимости от значности score и highscore'''
@@ -70,7 +70,7 @@ class ScoreTitleSumbol():
             if self.row == 0:   # только для score_list
                 # обновление цифр в score
                 if symb_list.index(self) == 0:  # делает только первый из score_list
-                    ScoreTitleSumbol.update_digits(symb_list)
+                    ScoreTitleSymbol.update_digits(symb_list)
 
             self.update_x(symb_list)
         else:
@@ -128,7 +128,7 @@ class ScoreTitleSumbol():
             with open('source/highscore.txt', 'w') as f:
                 f.write(str(Bullet.highscore))  # не переходит на след строку к отличие от print(.., file=f)
 
-        ScoreTitleSumbol.update_digits(highscore_list, old_highscore)   # не в первом if-е чтобы update_digits() вызывался в т.ч. в невалидных случаях
+        ScoreTitleSymbol.update_digits(highscore_list, old_highscore)   # не в первом if-е чтобы update_digits() вызывался в т.ч. в невалидных случаях
 
         for symb in highscore_list:
             symb.update_x(highscore_list)

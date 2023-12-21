@@ -4,7 +4,7 @@ from source.gun import Gun, GunHp
 from source.alien import TypeEnum as AlienTypeEnum, Alien, AliensBullet, Ufo
 from source.progress_bars import ProgressBar
 from source.win_title import WinTitleSquare
-from source.score_title import ScoreTitleSumbol
+from source.score_title import ScoreTitleSymbol
 from source.bullet import Bullet
 from source.CONSTANTS import SCREEN_SIZE, FRAMERATE, AlienConst
 from typing import List
@@ -110,7 +110,7 @@ def win_run(infinity_bullets):
     '''реализация цикла экрана выигрыша и инициализация переменных которые нужны только для него'''
 
     # обновление Bullet.highscore, highscore.txt и надписей highscore_list и score_list
-    ScoreTitleSumbol.update_highscore_and_txt_and_titles(score_list, highscore_list)
+    ScoreTitleSymbol.update_highscore_and_txt_and_titles(score_list, highscore_list)
 
     # инициализация разрушаемой надписи 'WIN'
     win_list: List[WinTitleSquare] = []
@@ -178,12 +178,12 @@ gun_hp_height = gun_hp_list[0].rect.height
 
 # инициализация счета выпущенных пуль и хайскора
 Bullet.read_highscore_txt()
-score_list: List[ScoreTitleSumbol] = []
-highscore_list: List[ScoreTitleSumbol] = []
+score_list: List[ScoreTitleSymbol] = []
+highscore_list: List[ScoreTitleSymbol] = []
 for symb in 'bullets:':         # все что после ':' не учитывается
-    score_list.append(ScoreTitleSumbol(gun_hp_height, symb, 0))
+    score_list.append(ScoreTitleSymbol(gun_hp_height, symb, 0))
 for symb in 'highscore:' + str(Bullet.highscore):
-    highscore_list.append(ScoreTitleSumbol(gun_hp_height, symb, 1))
+    highscore_list.append(ScoreTitleSymbol(gun_hp_height, symb, 1))
 
 # ОСНОВНОЙ ЦИКЛ ИГРЫ
 main_run(infinity_bullets)
