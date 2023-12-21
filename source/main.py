@@ -11,7 +11,7 @@ from typing import List
 
 
 def main_run(infinity_bullets):
-    '''цикл основной игры и переменные которые нужны только для него'''
+    '''реализация цикла основной игры и инициализация переменных которые нужны только для него'''
     lose = False
     win = False
 
@@ -21,7 +21,6 @@ def main_run(infinity_bullets):
     ufo_list: List[Ufo] = [Ufo()]      # лист с одним объектом вместо просто объекта -- чтобы была возможность удалить объект Ufo
     progr_bars_list: List[ProgressBar] = []
 
-    Bullet.set_score_zero()
     bullets_list.clear()
 
     while not win:          # цикл по каждому фрейму
@@ -42,11 +41,15 @@ def main_run(infinity_bullets):
                 bullet.update(bullets_list, False)
             bullet.output(screen)
 
-        # НАДПИСЬ 'bullets : количество_выпущенных_пуль'
+        # НАДПИСЬ 'bullets : Bullet.count_of_bullets_fired'
         for symb in score_list:
-            symb.update(bullets_list, score_list, gun_hp_height, False)
+            symb.update(bullets_list, score_list, False)
             symb.output(screen)
 
+        # НАДПИСЬ 'highscore: Bullet.highscore'
+        for symb in highscore_list:
+            symb.update(bullets_list, highscore_list, False)
+            symb.output(screen)
 
         # ALIENS BULLETS
         for aliens_bullet in aliens_bullet_list:
@@ -97,14 +100,18 @@ def main_run(infinity_bullets):
                 aliens_list = Alien.create_new_army(aliens_bullet_list, AlienConst.NUMBER_VERT * AlienConst.NUMBER_HOR,gun.rect)
                 ufo_list = [Ufo()]  # тем самым создаем новый объект Ufo => с новыми дефолтными аттрибутами
                 ProgressBar.restart(progr_bars_list)
-                Bullet.set_score_zero()
+                Bullet.score = 0
                 lose = False
         elif len(aliens_list) == 0:
             win = True
 
 
 def win_run(infinity_bullets):
-    '''цикл экрана выигрыша и переменные которые нужны только для него'''
+    '''реализация цикла экрана выигрыша и инициализация переменных которые нужны только для него'''
+
+    # обновление Bullet.highscore, highscore.txt и надписей highscore_list и score_list
+    ScoreTitleSumbol.update_highscore_and_txt_and_titles(score_list, highscore_list)
+
     # инициализация разрушаемой надписи 'WIN'
     win_list: List[WinTitleSquare] = []
     for _ in range(90):
@@ -137,9 +144,14 @@ def win_run(infinity_bullets):
             gun_hp.update(True, gun, gun_hp_list, bullets_list)
             gun_hp.output_hp(screen)
 
-        # НАДПИСЬ 'bullets : количество_выпущенных_пуль'
+        # НАДПИСЬ 'bullets : Bullet.count_of_bullets_fired'
         for symb in score_list:
-            symb.update(bullets_list, score_list, gun_hp_height, True)
+            symb.update(bullets_list, score_list, True)
+            symb.output(screen)
+
+        # НАДПИСЬ 'highscore: Bullet.highscore'
+        for symb in highscore_list:
+            symb.update(bullets_list, highscore_list, True)
             symb.output(screen)
 
         # НАДПИСЬ WIN
@@ -156,16 +168,22 @@ screen = pygame.display.set_mode((SCREEN_SIZE, SCREEN_SIZE))        # иници
 # иициализация пушки и пуль
 gun = Gun()
 bullets_list: List[Bullet] = []
-infinity_bullets = False # True -> поток бесконечных пуль
+infinity_bullets = False    # True -> поток бесконечных пуль
+
 # инициализация значков хп
 gun_hp_list: List[GunHp] = []
 for _ in range(gun.hp):
     gun_hp_list.append(GunHp(gun))
 gun_hp_height = gun_hp_list[0].rect.height
-# инициализация счета выпущенных пуль
+
+# инициализация счета выпущенных пуль и хайскора
+Bullet.read_highscore_txt()
 score_list: List[ScoreTitleSumbol] = []
+highscore_list: List[ScoreTitleSumbol] = []
 for symb in 'bullets:':         # все что после ':' не учитывается
-    score_list.append(ScoreTitleSumbol(gun_hp_height, symb))
+    score_list.append(ScoreTitleSumbol(gun_hp_height, symb, 0))
+for symb in 'highscore:' + str(Bullet.highscore):
+    highscore_list.append(ScoreTitleSumbol(gun_hp_height, symb, 1))
 
 # ОСНОВНОЙ ЦИКЛ ИГРЫ
 main_run(infinity_bullets)

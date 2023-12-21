@@ -2,13 +2,26 @@
 
 import pygame
 from source.my_functions import scale_img, in_screen
-from source.CONSTANTS import SCREEN_SIZE, SMALLFONT, SCREEN_FRAME, GunConst, BulletConst
+from source.CONSTANTS import SCREEN_SIZE, GunConst
+
+class bcolors:
+    '''для вывода ошибков в except'''
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
 
 class Bullet():
     '''класс ОДНОЙ пули пушки'''
-    count_of_bullets_fired = 0          # количество выпущенных за раунд пуль
+    score = 0          # количество выпущенных на данный момпнт пуль (обнуляется при новом раунде)
     speed_hor_from_moving_gun = 0.15 * GunConst.SPEED * SCREEN_SIZE / 800   # горизонтальная скорость пули при вылете из движещейся пушки (делаем ее равной 0.15 от скорости пушки) и ее масштабирование с учетом размера экрана (не in_screen() потому что не нужен round())
-    speed_vert = BulletConst.SPEED_VERT * SCREEN_SIZE / 800  # отмасштабированная общая скорость по вертикали (не in_screen() потому что не нужен round())
+    speed_vert = GunConst.BULLET_SPEED_VERT * SCREEN_SIZE / 800  # отмасштабированная общая скорость по вертикали (не in_screen() потому что не нужен round())
+    highscore = None            # определяется при чтении из highscore.txt
 
     # .convert_alpha() и scale_img в конструкторе первой выпущенной пули
     img_regular = pygame.image.load('images/gun/bullet_green.png')
@@ -21,10 +34,10 @@ class Bullet():
             Bullet.sound_shoot.play()
 
         # первая выпущенная пуля инициализирует изображения
-        if Bullet.count_of_bullets_fired == 0:
+        if Bullet.score == 0:
             Bullet.img_regular = scale_img(Bullet.img_regular.convert_alpha(), height=in_screen(18))
             Bullet.img_win = scale_img(Bullet.img_win.convert_alpha(), height=in_screen(18))
-        Bullet.count_of_bullets_fired += 1
+        Bullet.score += 1
 
         # изображение по дефолту зеленое
         self.img = Bullet.img_regular
@@ -90,6 +103,15 @@ class Bullet():
         screen.blit(self.img, self.rect)
 
     @classmethod
-    def set_score_zero(cls):
-        '''зануляет количество выпущенных пуль'''
-        cls.count_of_bullets_fired = 0
+    def read_highscore_txt(cls):
+        '''обновляет переменную Bullet.highscore, перечитывая highscore.txt'''
+        try:
+            with open('source/highscore.txt', 'r') as f:
+                try:
+                    cls.highscore = f.readlines()[0]  # на всякий случай считываем только первую строку
+                except:
+                    print(f"{bcolors.FAIL}error reading the first line from the file{bcolors.ENDC}")  # если пустой файл
+                    cls.highscore = None
+        except:
+            print(f"{bcolors.FAIL}error opening the file{bcolors.ENDC}")     # если файла нет
+            cls.highscore = None
