@@ -4,7 +4,7 @@ import pygame
 from source.my_functions import scale_img, in_screen
 import random
 from source.progress_bars import ProgressBar
-from source.CONSTANTS import SCREEN_SIZE, SCREEN_FRAME, AlienConst as Const
+from source.CONSTANTS import SCREEN_SIZE, SCREEN_FRAME, SMALLFONT, AlienConst as Const
 from enum import Enum
 
 class MovDirectionEnum(Enum):
@@ -113,7 +113,7 @@ class Alien():
         self.rect = self.img.get_rect()
         self.float_x = 0 + self.frame + (self.count % Const.NUMBER_HOR)*(self.rect.width + Alien.distance_between_hor)
         self.rect.x = round(self.float_x)
-        self.float_y = float(SCREEN_FRAME + in_screen(Alien.start_y) + (self.count // Const.NUMBER_HOR)*(self.rect.height + Alien.distance_between_vert))
+        self.float_y = float(SCREEN_FRAME + in_screen(Alien.start_y) + (self.count // Const.NUMBER_HOR)*(self.rect.height + Alien.distance_between_vert) + 1.5 * SMALLFONT.get_height())
         self.rect.y = round(self.float_y)
 
         self.dead = False
@@ -351,7 +351,7 @@ class Ufo():
             self.rect.left = SCREEN_SIZE
         self.float_x = self.rect.x
         # задание координаты y
-        self.rect.y = SCREEN_FRAME + in_screen(Alien.start_y)
+        self.rect.y = SCREEN_FRAME + in_screen(Alien.start_y) + 1.5 * SMALLFONT.get_height()
 
         self.time_of_init = pygame.time.get_ticks()             # время создания объекта Ufo (для времени появления)
         self.visible_on_screen = False                          # становится True если хотя бы один пиксель НЛО виден на экране

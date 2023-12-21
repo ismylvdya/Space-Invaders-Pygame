@@ -61,7 +61,7 @@ class ProgressBar():
         в случае NEGATIVE 3 если время кончилось, иначе 1 \n
         в случае UFO False если время кончилось, иначе True
         '''
-        bottom_of_score = SCREEN_FRAME + gun_hp_height  # координата низа надписи 'bullets : количество_выпущенных_пуль'
+        bottom_of_score = SCREEN_FRAME + gun_hp_height + 1.5 * SMALLFONT.get_height()  # координата низа надписи 'bullets : количество_выпущенных_пуль'
         # координаты y (расстояние между прогрессбарами = 0.5 от их высоты, расстояние от надписи до первого = 20)
         self.outline_rect.y = bottom_of_score + in_screen(20) + 1.5 * progr_bars_list.index(self) * self.outline_rect.height
         self.fill_rect.y = bottom_of_score + in_screen(20) + 1.5 * progr_bars_list.index(self) * self.outline_rect.height
