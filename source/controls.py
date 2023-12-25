@@ -45,7 +45,7 @@ def events(gun, bullets_list, lose):   # вызывается на каждой 
 
         # нажатие на i
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_i:
+            if event.scancode == 12:    # если нажата i или ш или буква какого-либо другого языка с клавиши i
                 if not lose:
                     return EventsEnum.INFINITY_BULLETS
 
