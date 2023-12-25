@@ -72,7 +72,7 @@ UFO
 
 
 - <kbd>a</kbd> and <kbd>d</kbd> &thinsp; or &thinsp; <kbd>◀</kbd> and <kbd>▶</kbd> &thinsp; move your cannon left and right
-- <kbd>SPASE</kbd> &thinsp; or &thinsp; <kbd>w</kbd> &thinsp; or &thinsp; <kbd>▲</kbd> &thinsp; cancels last movement
+- <kbd>SPASE</kbd>, &thinsp; <kbd>w</kbd> &thinsp; or &thinsp; <kbd>▲</kbd> &thinsp; shoots a bullet
 - <kbd>i</kbd> turns on a very dense stream of bullets 
   
   <img src="images/for README/infinitybullets.webp" width="49%"/> <img src="images/for README/kaleidoscope.webp" width="49%"/>
