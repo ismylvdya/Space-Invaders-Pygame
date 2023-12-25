@@ -9,7 +9,7 @@ class GunConst():
     DURATION_OF_LOSE_FREEZE = 900       # длительность заморозки происходящего на экране при проигрыше (в мс)
     SPEED = 5                           # горизонтальная скорость пушки (округляется до int)
     START_HP = 3                        # начальное количество жизней
-    PLAY_SOUND_OF_SHOOT = False
+    PLAY_SOUND_OF_SHOOT = True
 
     BULLET_SPEED_VERT = 13              # вертикальная скорость наших пуль (учитывается float)
 
@@ -34,7 +34,7 @@ class AlienConst():
     GUN_TRANSPARENCY_DURATION = 7000            # длительность неуязвимости пушки при попадании в НЛО (мс)
     MAX_TIME_FOR_UFO_APPEARANCE_MOMENT = 20000  # максимлаьный момент времени (с начала раунда) в который НЛО может появиться
 
-    PLAY_SOUND_OF_DEATH = False
+    PLAY_SOUND_OF_DEATH = True
     PLAY_UFO_SOUND = False
 
 
