@@ -32,7 +32,7 @@ A Space-Invaders-based game created in Python with visualization via PyGame, for
 - if you hit the red UFO your cannon becomes invulnerable to bullets and touch from aliens for 7 seconds (the red time progress bar appears in the top right screen corner)
 
   <p align="center">
-        <img src="images/for README/UFO.webp" width="49%">
+        <img src="images/for README/ufo.webp" width="49%">
   </p>
   
 - highscore - the least number of bullets you fired during all winning rounds
