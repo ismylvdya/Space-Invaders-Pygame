@@ -41,7 +41,7 @@ def main_run(infinity_bullets):
                 bullet.update(bullets_list, False)
             bullet.output(screen)
 
-        # НАДПИСЬ 'bullets : Bullet.count_of_bullets_fired'
+        # НАДПИСЬ 'bullets : Bullet.score'
         for symb in score_list:
             symb.update(bullets_list, score_list, False)
             symb.output(screen)
@@ -144,7 +144,7 @@ def win_run(infinity_bullets):
             gun_hp.update(True, gun, gun_hp_list, bullets_list)
             gun_hp.output_hp(screen)
 
-        # НАДПИСЬ 'bullets : Bullet.count_of_bullets_fired'
+        # НАДПИСЬ 'bullets : Bullet.score'
         for symb in score_list:
             symb.update(bullets_list, score_list, True)
             symb.output(screen)
