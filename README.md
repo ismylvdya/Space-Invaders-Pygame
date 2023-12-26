@@ -4,7 +4,7 @@
 
 ## 👾 About
 
-A Space-Invaders-based game created in Python with visualization via PyGame, for the purpose of practicing in PyGame library.
+A Space Invaders based game created in Python with visualization via PyGame, for the purpose of practicing in PyGame library.
 
 ## 👀 How it looks
 
