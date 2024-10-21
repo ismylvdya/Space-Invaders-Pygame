@@ -39,7 +39,7 @@ A Space Invaders based game created in Python with visualization via PyGame, for
 
 - the fewer aliens left, the greater their horizontal speed
 
-- you can still shoot on the win screen 😏
+- you can still shoot on the win screen 👀
 
 
 ### What can be changed in [CONSTANTS.py](source/CONSTANTS.py)
@@ -83,4 +83,4 @@ the PyGame library connected to this project in your IDE
 
 ## 🤌🏽 Contact
 
-Данила Исмайлов - [GitHub](https://github.com/ismylvdya) - [Telegram](https://t.me/chumbulev)
+Данила Исмайлов - [GitHub](https://github.com/ismylvdya) - [Telegram](https://t.me/ismylvdya)
